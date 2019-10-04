@@ -1,0 +1,13 @@
+Needs:
+Character class
+	-move
+	-Jump
+	-dodge
+	-attack
+	-block
+	-health field
+	-update method and draw method
+Timer
+background
+player assets
+title screen and ui
