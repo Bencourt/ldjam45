@@ -7,6 +7,14 @@ namespace LDjam45
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
+    /// 
+    enum playerType
+        {
+            gunPlayer,
+            swordPlayer,
+            flailPlayer
+        }
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
