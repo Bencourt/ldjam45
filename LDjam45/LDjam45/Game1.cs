@@ -14,6 +14,13 @@ namespace LDjam45
             swordPlayer,
             flailPlayer
         }
+    enum gameState
+    {
+        menu,
+        game,
+        pause,
+        gameOver
+    }
 
     public class Game1 : Game
     {
