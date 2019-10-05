@@ -113,6 +113,7 @@ namespace LDjam45
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
             switch (gState)
             {
                 case gameState.game:
@@ -125,7 +126,7 @@ namespace LDjam45
                 case gameState.pause:
                     break;
             }
-
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
