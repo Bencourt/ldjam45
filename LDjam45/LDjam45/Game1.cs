@@ -27,6 +27,9 @@ namespace LDjam45
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        KeyboardState kbState;
+        KeyboardState prevKbState;
+        gameState gState;
 
         //fps integer
         const int framesPerSecond = 30;
@@ -49,7 +52,7 @@ namespace LDjam45
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            gState = gameState.menu;
             base.Initialize();
         }
 
@@ -85,6 +88,25 @@ namespace LDjam45
                 Exit();
             System.Console.WriteLine("update");
             // TODO: Add your update logic here
+            
+            prevKbState = kbState;
+            kbState = Keyboard.GetState();
+            switch (gState)
+            {
+                case gameState.game:
+                    break;
+                case gameState.gameOver:
+                    break;
+                case gameState.menu:
+                    if(SingleKeyPress(Keys.Enter))
+                    {
+                        gState = gameState.game;
+                    }
+                    break;
+                case gameState.pause:
+                    break;
+            }
+
 
             frameCount++;
             base.Update(gameTime);
@@ -99,8 +121,34 @@ namespace LDjam45
             GraphicsDevice.Clear(Color.CornflowerBlue);
             System.Console.WriteLine("draw");
             // TODO: Add your drawing code here
+            switch (gState)
+            {
+                case gameState.game:
+                    break;
+                case gameState.gameOver:
+                    break;
+                case gameState.menu:
+                    
+                    break;
+                case gameState.pause:
+                    break;
+            }
 
             base.Draw(gameTime);
+        }
+
+
+        private bool SingleKeyPress(Keys k)
+        {
+            if (prevKbState.IsKeyUp(k) && kbState.IsKeyDown(k))
+            {
+                return true;
+            }
+            else if (kbState.IsKeyDown(k) && prevKbState == null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
