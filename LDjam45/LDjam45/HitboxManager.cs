@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+//using System.Drawing;
 
 namespace LDjam45
 {
@@ -16,18 +18,18 @@ namespace LDjam45
 
         public void ActivateHitbox(Rectangle hitbox, SpriteBatch spriteBatch, Texture2D texture)
         {
-            spriteBatch.Draw(texture, Color.White, hitbox);//Fix
+            spriteBatch.Draw(texture, hitbox,Color.White);//Fix
         }
         public void CheckCollision(Rectangle hitbox,Rectangle cRect,Character cObj)
         {
-            if (hitbox.IntersectsWith(cRect))
+            if (hitbox.Intersects(cRect)==true)
             {
                 cObj.health -= 1;
             }
         }
         public void DeleteHitbox(Rectangle hitbox)
         {
-            hitbox.X == -50;
+            hitbox.X = -50;
         }
     }
 }
