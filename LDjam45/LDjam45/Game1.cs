@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace LDjam45
 {
@@ -30,10 +31,16 @@ namespace LDjam45
         KeyboardState prevKbState;
         gameState gState;
 
+        //fps integer
+        const int framesPerSecond = 30;
+        int frameCount;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //set gamespeed to 30 fps
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1 / framesPerSecond);
         }
 
         /// <summary>
@@ -79,7 +86,7 @@ namespace LDjam45
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            System.Console.WriteLine("update");
             // TODO: Add your update logic here
             
             prevKbState = kbState;
@@ -101,6 +108,7 @@ namespace LDjam45
             }
 
 
+            frameCount++;
             base.Update(gameTime);
         }
 
@@ -111,7 +119,7 @@ namespace LDjam45
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            System.Console.WriteLine("draw");
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             switch (gState)

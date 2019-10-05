@@ -12,20 +12,23 @@ namespace LDjam45
 {
     class HitboxManager
     {
+        //the hitbox
         Rectangle hitBox = new Rectangle();
 
         public HitboxManager()
         {
+            //nothing here
         }
 
         public void ActivateHitbox(Point location, Point scale)
         {
-            //spriteBatch.Draw(texture, hitbox,Color.White);
+            //set the location and size of the hitbox
             hitBox.Location = location;
             hitBox.Size = scale;
         }
         public bool CheckCollision(Character cObj)
         {
+            //determine if the other player was hit
             if (hitBox.Intersects(cObj.PlayerRectangle) == true)
             {
                 return true;
@@ -33,6 +36,8 @@ namespace LDjam45
             else
                 return false;
         }
+
+        //remove the hit box
         public void DeleteHitbox()
         {
             hitBox.X = -50;
