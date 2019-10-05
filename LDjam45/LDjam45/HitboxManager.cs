@@ -12,24 +12,31 @@ namespace LDjam45
 {
     class HitboxManager
     {
-        Rectangle hitBox;
-        List<Rectangle> hitBoxActive;
-        List<Rectangle> hitBoxInactive;
+        Rectangle hitBox = new Rectangle();
 
-        public void ActivateHitbox(Rectangle hitbox, SpriteBatch spriteBatch, Texture2D texture)
+        public HitboxManager()
         {
-            spriteBatch.Draw(texture, hitbox,Color.White);//Fix
         }
-        public void CheckCollision(Rectangle hitbox,Rectangle cRect,Character cObj)
+
+        public void ActivateHitbox(Point location, Point scale)
         {
-            if (hitbox.Intersects(cRect)==true)
+            //spriteBatch.Draw(texture, hitbox,Color.White);
+            hitBox.Location = location;
+            hitBox.Size = scale;
+        }
+        public bool CheckCollision(Character cObj)
+        {
+            if (hitBox.Intersects(cObj.PlayerRectangle) == true)
             {
-                cObj.health -= 1;
+                return true;
             }
+            else
+                return false;
         }
-        public void DeleteHitbox(Rectangle hitbox)
+        public void DeleteHitbox()
         {
-            hitbox.X = -50;
+            hitBox.X = -50;
+            hitBox.Size = new Point(2, 2);
         }
     }
 }
