@@ -39,11 +39,27 @@ namespace LDjam45
         int health;     //player health
         int frameCount;     //total frame counter
         int frameWait;      //frames to wait
+        bool frameWaitSet;  //determines if the frame wait was just set or not
         int spdScale;        //movement speed
         float xSpd;         //player x speed
         float ySpd;         //player y speed
         int dir;            //player facing direction
         bool attacked;      //has the player attacked
+        bool isInvulnerable; //the player is either blocking or in knockback
+
+
+        // Texture and drawing
+        Texture2D spriteSheet;  // The single image with all of the animation frames
+
+        // Animation
+        int imageWidth;
+        int imageHeight;
+        int imageYOffset;
+        int walkFrameCount;
+        int frame;              // The current animation frame
+        double timeCounter;     // The amount of time that has passed
+        double fps;             // The speed of the animation
+        double timePerFrame;    // The amount of time (in fractional seconds) per frame
 
         Rectangle playerRectangle;      //player rectangle
 
@@ -72,7 +88,7 @@ namespace LDjam45
         #endregion
 
         //character constructor takes game information 
-        public Character(playerType pType, int playerNumber, Rectangle playerRectangle, Character Other)
+        public Character(playerType pType, int playerNumber, Rectangle playerRectangle,Texture2D spriteSheet, Character Other)
         {
             //setting preliminary values
             health = 20;
@@ -81,7 +97,12 @@ namespace LDjam45
             ySpd = 0.0f;
             dir = 1;
             attacked = false;
+            isInvulnerable = false;
+            frameWaitSet = false;
+            walkFrameCount = 8;
 
+            //set the spritesheet
+            this.spriteSheet = spriteSheet;
             //set the rectangle
             this.playerRectangle = playerRectangle;
             //create the hitbox manager
@@ -289,32 +310,42 @@ namespace LDjam45
                             //sword player attack with arbitrary values
                             case playerType.swordPlayer:
                                 hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
-                                hitBox.CheckCollision(Other);
+                                if (hitBox.CheckCollision(Other))
+                                    Other.TakeDamage();
                                 hitBox.DeleteHitbox();
                                 break;
 
                                 //flail player, arbitrary values
                             case playerType.flailPlayer:
                                 hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (50 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(40, 40));
-                                hitBox.CheckCollision(Other);
+                                if (hitBox.CheckCollision(Other))
+                                    Other.TakeDamage();
                                 hitBox.DeleteHitbox();
                                 break;
 
                                 //gun player arbitrary values
                             case playerType.gunPlayer:
                                 hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
-                                hitBox.CheckCollision(Other);
+                                if (hitBox.CheckCollision(Other))
+                                    Other.TakeDamage();
                                 hitBox.DeleteHitbox();
                                 break;
                         }
                         //set attacked to true and set the number of frames to wait
                         attacked = true;
-                        frameWait = 4;
+
+                    }
+                    //set the frame timer
+                    if (!frameWaitSet)
+                    {
+                        frameWait = 8;
+                        frameWaitSet = true;
                     }
                     //if the player has waited enough, set the player state back to move and reset the ability to attack
-                    if(frameWait == 0)
+                    if (frameWait == 0)
                     {
                         attacked = false;
+                        frameWaitSet = false;
                         pState = playerState.moveState;
                     }
                     else
@@ -327,6 +358,16 @@ namespace LDjam45
 
                     //block state
                 case playerState.blockState:
+                    if (kbState.IsKeyDown(Keys.B))
+                    {
+                        pState = playerState.blockState;
+                        isInvulnerable = true;
+                    }
+                    else
+                    {
+                        pState = playerState.moveState;
+                        isInvulnerable = false;
+                    }
                     break;
 
                     //dash state (?)
@@ -335,6 +376,22 @@ namespace LDjam45
 
                     //knockback state
                 case playerState.knockBackState:
+                    isInvulnerable = true;
+                    if(!frameWaitSet)
+                    {
+                        frameWaitSet = true;
+                        frameWait = 4;
+                    }
+                    if(frameWait > 0)
+                    {
+                        frameWait--;
+                    }
+                    else
+                    {
+                        isInvulnerable = false;
+                        frameWait = 4;
+                        frameWaitSet = false;
+                    }
                     break;
             }
 
@@ -344,10 +401,92 @@ namespace LDjam45
 
         }
 
+        public void UpdateAnimation(GameTime gameTime)
+        {
+            // Handle animation timing
+            // - Add to the time counter
+            // - Check if we have enough "time" to advance the frame
+
+            // How much time has passed?  
+            timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
+
+            // If enough time has passed:
+            if (timeCounter >= timePerFrame)
+            {
+                frame += 1;                     // Adjust the frame to the next image
+
+                if (frame > walkFrameCount)     // Check the bounds - have we reached the end of walk cycle?
+                    frame = 1;                  // Back to 1 (since 0 is the "standing" frame)
+
+                timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
+                                                // This keeps the time passed 
+            }
+        }
+
         //draw method
         public void draw(SpriteBatch sb)
         {
+            SpriteEffects flipImage;
+            Color imageColor;
 
+            imageColor = Color.White;
+            flipImage = SpriteEffects.None;
+
+            if (dir<0)
+            {
+                flipImage = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
+                flipImage = SpriteEffects.None;
+            }
+
+
+            if (pState == playerState.knockBackState)
+            {
+                imageColor = Color.Red;
+            }
+            else
+                imageColor = Color.White;
+
+
+            sb.Draw(
+                    spriteSheet,                                            // - The texture to draw
+                    playerRectangle.Location.ToVector2(),                   // - The location to draw on the screen
+                    new Rectangle(                                          // - The "source" rectangle
+                        new Point(frame * imageWidth,                       //   - This rectangle specifies
+                        imageYOffset),                                      //	   where "inside" the texture
+                        new Point(imageWidth,                               //     to get pixels (We don't want to
+                        imageHeight)),                                      //     draw the whole thing)
+                    imageColor,                                             // - The color
+                    0,                                                      // - Rotation (none currently)
+                    Vector2.Zero,                                           // - Origin inside the image (top left)
+                    1.0f,                                                   // - Scale (100% - no change)
+                    flipImage,                                              // - Can be used to flip the image
+                    0);                                                     // - Layer depth (unused)
+        }
+
+        public void TakeDamage()
+        {
+            if (!isInvulnerable)
+            {
+
+                switch (Other.pType)
+                {
+                    case playerType.flailPlayer:
+                        health -= 3;
+                        break;
+
+                    case playerType.swordPlayer:
+                        health -= 2;
+                        break;
+
+                    case playerType.gunPlayer:
+                        health--;
+                        break;
+                }
+                pState = playerState.knockBackState;
+            }
         }
     }
 }
