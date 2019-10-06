@@ -38,6 +38,7 @@ namespace LDjam45
         //spritesheets
         Texture2D GunnerSpritesheet;
         Texture2D FlailSpritesheet;
+        Texture2D SwordSpritesheet;
 
         //characters
         Character player0;
@@ -83,8 +84,9 @@ namespace LDjam45
             //loading spritesheets go here
             GunnerSpritesheet = Content.Load<Texture2D>("GunnerSpritesheet");
             FlailSpritesheet = Content.Load<Texture2D>("FlailSpritesheet");
+            SwordSpritesheet = Content.Load<Texture2D>("SwordSpritesheet");
             player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
-            player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet);
+            player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
             player0.GetOther(player1);
             player1.GetOther(player0);
         }
@@ -143,12 +145,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                //player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordfighterSpritesheet);
+                                player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordSpritesheet);
                                 choice1 = true;
                             }
                             else if (mState.RightButton == ButtonState.Pressed)
                             {
-                                //player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordfighterSpritesheet);
+                                player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
                                 choice2 = true;
                             }
                         }
