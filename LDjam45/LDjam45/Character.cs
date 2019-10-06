@@ -366,7 +366,7 @@ namespace LDjam45
                     //set the frame timer
                     if (!frameWaitSet)
                     {
-                        frameWait = 8;
+                        frameWait = 30;
                         frameWaitSet = true;
                     }
                     //if the player has waited enough, set the player state back to move and reset the ability to attack
@@ -419,6 +419,7 @@ namespace LDjam45
                         isInvulnerable = false;
                         frameWait = 4;
                         frameWaitSet = false;
+                        pState = playerState.moveState;
                     }
                     break;
             }
