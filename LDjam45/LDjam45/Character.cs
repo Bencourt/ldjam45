@@ -451,11 +451,11 @@ namespace LDjam45
                     }
                     break;
                 case playerState.attackState:
-                    imageYOffset = 3 * imageHeight;
+                    imageYOffset = 4 * imageHeight;
                     currentFrameCount = 17;
                     break;
                 case playerState.blockState:
-                    imageYOffset = 4 * imageHeight;
+                    imageYOffset = 3 * imageHeight;
                     currentFrameCount = 17;
                     break;
                 case playerState.knockBackState:
