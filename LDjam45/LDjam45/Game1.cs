@@ -37,6 +37,7 @@ namespace LDjam45
 
         //spritesheets
         Texture2D GunnerSpritesheet;
+        Texture2D FlailSpritesheet;
 
         //characters
         Character player0;
@@ -81,8 +82,9 @@ namespace LDjam45
 
             //loading spritesheets go here
             GunnerSpritesheet = Content.Load<Texture2D>("GunnerSpritesheet");
+            FlailSpritesheet = Content.Load<Texture2D>("FlailSpritesheet");
             player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
-            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
+            player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet);
             player0.GetOther(player1);
             player1.GetOther(player0);
         }
@@ -154,12 +156,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                //player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
+                                player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), FlailSpritesheet);
                                 choice1 = true;
                             }
                             else if (mState.RightButton == ButtonState.Pressed)
                             {
-                                //player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
+                                player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet);
                                 choice2 = true;
                             }
                         }
