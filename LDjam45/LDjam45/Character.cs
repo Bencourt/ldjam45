@@ -46,6 +46,8 @@ namespace LDjam45
         int dir;            //player facing direction
         bool attacked;      //has the player attacked
         bool isInvulnerable; //the player is either blocking or in knockback
+        bool singlePress;   //detects a single key press, value is equal to method in Game1
+        
 
 
         // Texture and drawing
@@ -89,7 +91,7 @@ namespace LDjam45
         #endregion
 
         //character constructor takes game information 
-        public Character(playerType pType, int playerNumber, Rectangle playerRectangle,Texture2D spriteSheet)
+        public Character(playerType pType, int playerNumber, Rectangle playerRectangle, Texture2D spriteSheet, bool singlePress)
         {
             //setting preliminary values
             health = 20;
@@ -124,6 +126,8 @@ namespace LDjam45
             jState = jumpState.grounded;
             //set the player number
             this.playerNumber = playerNumber;
+
+            this.singlePress = singlePress;
         }
 
         //update method takes a keyboard state and frame count from the game1 update method
@@ -164,6 +168,14 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
+                                if (kbState.IsKeyDown(Keys.F))
+                                {
+                                    if (singlePress != false)
+                                    {
+                                        pState = playerState.attackState;
+                                    }
+                                    
+                                }
                                 break;
 
                                 //move left state 
@@ -182,6 +194,10 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
+                                if (kbState.IsKeyDown(Keys.F))
+                                {
+                                    pState = playerState.attackState;
+                                }
                                 break;
 
                                 //move right
@@ -200,6 +216,10 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
+                                if (kbState.IsKeyDown(Keys.F))
+                                {
+                                    pState = playerState.attackState;
+                                }
                                 break;
                         }
 
@@ -426,7 +446,7 @@ namespace LDjam45
                     else
                     {
                         imageYOffset = 0*imageHeight;
-                        currentFrameCount = 3;
+                        currentFrameCount = 0;
                     }
                     break;
                 case playerState.attackState:
