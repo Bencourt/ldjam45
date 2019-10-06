@@ -55,7 +55,8 @@ namespace LDjam45
         int imageWidth;
         int imageHeight;
         int imageYOffset;
-        int walkFrameCount;
+        //changed walkframe count to currentFrameCount
+        int currentFrameCount;
         int frame;              // The current animation frame
         double timeCounter;     // The amount of time that has passed
         double fps;             // The speed of the animation
@@ -99,8 +100,15 @@ namespace LDjam45
             attacked = false;
             isInvulnerable = false;
             frameWaitSet = false;
-            walkFrameCount = 8;
-
+            currentFrameCount = 8;
+            //animation preliminary values
+            imageHeight = 64;
+            imageWidth = 64;
+            imageYOffset = 64;
+            //twelve for fps looks good for now, can be changed later as needed
+            fps = 12;
+            timePerFrame = 1 / fps;
+            
             //set the spritesheet
             this.spriteSheet = spriteSheet;
             //set the rectangle
@@ -403,6 +411,29 @@ namespace LDjam45
 
         public void UpdateAnimation(GameTime gameTime)
         {
+            //switch statement to determine what the YOffset should be
+            //should just be based of the player state
+            //change the walk frame count based on what state we are in (some frames have less counts)
+            switch (pState)
+            {
+                case playerState.moveState:
+                    imageYOffset = imageHeight;
+                    currentFrameCount = 8;
+                    break;
+                case playerState.attackState:
+                    imageYOffset = 3 * imageHeight;
+                    currentFrameCount = 8;
+                    break;
+                case playerState.blockState:
+                    imageYOffset = 4 * imageHeight;
+                    currentFrameCount = 8;
+                    break;
+                case playerState.knockBackState:
+                    imageYOffset = 5 * imageHeight;
+                    currentFrameCount = 6;
+                    break;
+            }
+
             // Handle animation timing
             // - Add to the time counter
             // - Check if we have enough "time" to advance the frame
@@ -415,7 +446,7 @@ namespace LDjam45
             {
                 frame += 1;                     // Adjust the frame to the next image
 
-                if (frame > walkFrameCount)     // Check the bounds - have we reached the end of walk cycle?
+                if (frame > currentFrameCount)     // Check the bounds - have we reached the end of animation cycle?
                     frame = 1;                  // Back to 1 (since 0 is the "standing" frame)
 
                 timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0

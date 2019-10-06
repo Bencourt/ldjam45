@@ -35,6 +35,9 @@ namespace LDjam45
         const int framesPerSecond = 30;
         int frameCount;
 
+        //spritesheets
+        Texture2D GunnerSpritesheet;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -65,7 +68,10 @@ namespace LDjam45
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            //loading spritesheets go here
+            GunnerSpritesheet = Content.Load<Texture2D>("GunnerSpritesheet");
+
+            
         }
 
         /// <summary>
