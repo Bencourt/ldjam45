@@ -221,7 +221,7 @@ namespace LDjam45
                                 //the falling state makes the player slow their jump and then fall
                                 if (ySpd != 10)
                                     //if not back to original position, fall
-                                    ySpd--;
+                                    ySpd++;
                                 else
                                 {
                                     //if back to original position, set speed to 0 and set to grounded state
@@ -294,7 +294,7 @@ namespace LDjam45
 
                             case jumpState.falling:
                                 if (ySpd != 10)
-                                    ySpd--;
+                                    ySpd++;
                                 else
                                 {
                                     ySpd = 0;
@@ -418,8 +418,16 @@ namespace LDjam45
             switch (pState)
             {
                 case playerState.moveState:
-                    imageYOffset = imageHeight;
-                    currentFrameCount = 8;
+                    if (mState != moveFSM.idle)
+                    {
+                        imageYOffset = imageHeight;
+                        currentFrameCount = 7;
+                    }
+                    else
+                    {
+                        imageYOffset = 0*imageHeight;
+                        currentFrameCount = 3;
+                    }
                     break;
                 case playerState.attackState:
                     imageYOffset = 3 * imageHeight;
