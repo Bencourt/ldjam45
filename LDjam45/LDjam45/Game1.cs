@@ -86,7 +86,7 @@ namespace LDjam45
             FlailSpritesheet = Content.Load<Texture2D>("FlailSpritesheet");
             SwordSpritesheet = Content.Load<Texture2D>("SwordSpritesheet");
             player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet, SingleKeyPress(Keys.F));
-            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet, SingleKeyPress(Keys.F));
+            player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet, SingleKeyPress(Keys.F));
             player0.GetOther(player1);
             player1.GetOther(player0);
         }
