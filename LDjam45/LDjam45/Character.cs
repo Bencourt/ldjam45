@@ -89,7 +89,7 @@ namespace LDjam45
         #endregion
 
         //character constructor takes game information 
-        public Character(playerType pType, int playerNumber, Rectangle playerRectangle,Texture2D spriteSheet, Character Other)
+        public Character(playerType pType, int playerNumber, Rectangle playerRectangle,Texture2D spriteSheet)
         {
             //setting preliminary values
             health = 20;
@@ -115,8 +115,6 @@ namespace LDjam45
             this.playerRectangle = playerRectangle;
             //create the hitbox manager
             hitBox = new HitboxManager();
-            //set the other player
-            this.Other = Other;
             //set the player type 
             this.pType = pType;
 
@@ -409,8 +407,9 @@ namespace LDjam45
 
         }
 
-        public void UpdateAnimation(GameTime gameTime)
+        public void UpdateAnimation()
         {
+            //GameTime gameTime;
             //switch statement to determine what the YOffset should be
             //should just be based of the player state
             //change the walk frame count based on what state we are in (some frames have less counts)
@@ -434,11 +433,17 @@ namespace LDjam45
                     break;
             }
 
+            frame += 1;                     // Adjust the frame to the next image
+
+            if (frame > currentFrameCount)     // Check the bounds - have we reached the end of animation cycle?
+                frame = 1;                  // Back to 1 (since 0 is the "standing" frame)
+
             // Handle animation timing
             // - Add to the time counter
             // - Check if we have enough "time" to advance the frame
 
-            // How much time has passed?  
+            // How much time has passed? 
+            /*
             timeCounter += gameTime.ElapsedGameTime.TotalSeconds;
 
             // If enough time has passed:
@@ -452,6 +457,7 @@ namespace LDjam45
                 timeCounter -= timePerFrame;    // Remove the time we "used" - don't reset to 0
                                                 // This keeps the time passed 
             }
+            */
         }
 
         //draw method
@@ -480,6 +486,7 @@ namespace LDjam45
             else
                 imageColor = Color.White;
 
+            UpdateAnimation();
 
             sb.Draw(
                     spriteSheet,                                            // - The texture to draw
@@ -518,6 +525,11 @@ namespace LDjam45
                 }
                 pState = playerState.knockBackState;
             }
+        }
+        public void GetOther(Character Other)
+        {
+            //set the other player
+            this.Other = Other;
         }
     }
 }

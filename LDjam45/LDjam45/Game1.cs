@@ -38,12 +38,16 @@ namespace LDjam45
         //spritesheets
         Texture2D GunnerSpritesheet;
 
+        //characters
+        Character player0;
+        Character player1;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             //set gamespeed to 30 fps
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1 / framesPerSecond);
+            //this.TargetElapsedTime = TimeSpan.FromSeconds(1 / framesPerSecond);
         }
 
         /// <summary>
@@ -55,7 +59,7 @@ namespace LDjam45
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gState = gameState.menu;
+            gState = gameState.game;
             base.Initialize();
         }
 
@@ -70,8 +74,10 @@ namespace LDjam45
 
             //loading spritesheets go here
             GunnerSpritesheet = Content.Load<Texture2D>("GunnerSpritesheet");
-
-            
+            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
+            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
+            player0.GetOther(player1);
+            player1.GetOther(player0);
         }
 
         /// <summary>
@@ -100,6 +106,8 @@ namespace LDjam45
             switch (gState)
             {
                 case gameState.game:
+                    player1.Update(kbState, frameCount);
+                    player0.Update(kbState, frameCount);
                     break;
                 case gameState.gameOver:
                     break;
@@ -131,6 +139,8 @@ namespace LDjam45
             switch (gState)
             {
                 case gameState.game:
+                    player0.draw(spriteBatch);
+                    player1.draw(spriteBatch);
                     break;
                 case gameState.gameOver:
                     break;
@@ -149,12 +159,15 @@ namespace LDjam45
         {
             if (prevKbState.IsKeyUp(k) && kbState.IsKeyDown(k))
             {
+                prevKbState = kbState;
                 return true;
             }
             else if (kbState.IsKeyDown(k) && prevKbState == null)
             {
+                prevKbState = kbState;
                 return true;
             }
+            prevKbState = kbState;
             return false;
         }
     }
