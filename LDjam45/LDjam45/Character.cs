@@ -174,9 +174,9 @@ namespace LDjam45
                                     {
                                         pState = playerState.attackState;
                                     }
-                                    
-                                }
-                                break;
+
+                        }
+                        break;
 
                                 //move left state 
                             case moveFSM.moveLeft:
