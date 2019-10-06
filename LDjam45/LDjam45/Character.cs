@@ -152,6 +152,7 @@ namespace LDjam45
                         {
                             //idle state does nothing and can switch between the move states and jumping state
                             case moveFSM.idle:
+                                xSpd = 0;
                                 if (kbState.IsKeyDown(Keys.A))
                                     //switch to left move 
                                     mState = moveFSM.moveLeft;
@@ -169,7 +170,7 @@ namespace LDjam45
                             case moveFSM.moveLeft:
                                 if (kbState.IsKeyDown(Keys.A))
                                     //move if the key is still held down
-                                    xSpd = spdScale;
+                                    xSpd = -spdScale;
                                 else if (kbState.IsKeyDown(Keys.D))
                                     //if the d key is pressed instead, switch to the move right state
                                     mState = moveFSM.moveRight;
@@ -187,7 +188,7 @@ namespace LDjam45
                             case moveFSM.moveRight:
                                 if (kbState.IsKeyDown(Keys.D))
                                     //move right if still pressing right
-                                    xSpd = -spdScale;
+                                    xSpd = spdScale;
                                 else if (kbState.IsKeyDown(Keys.A))
                                     //change to left move state
                                     mState = moveFSM.moveLeft;
@@ -241,6 +242,7 @@ namespace LDjam45
                         switch (mState)
                         {
                             case moveFSM.idle:
+                                xSpd = 0;
                                 if (kbState.IsKeyDown(Keys.Left))
                                     mState = moveFSM.moveLeft;
                                 else if (kbState.IsKeyDown(Keys.Right))
@@ -254,7 +256,7 @@ namespace LDjam45
 
                             case moveFSM.moveLeft:
                                 if (kbState.IsKeyDown(Keys.Left))
-                                    xSpd = spdScale;
+                                    xSpd = -spdScale;
                                 else if (kbState.IsKeyDown(Keys.Right))
                                     mState = moveFSM.moveRight;
                                 else
@@ -267,7 +269,7 @@ namespace LDjam45
 
                             case moveFSM.moveRight:
                                 if (kbState.IsKeyDown(Keys.Right))
-                                    xSpd = -spdScale;
+                                    xSpd = spdScale;
                                 else if (kbState.IsKeyDown(Keys.Left))
                                     mState = moveFSM.moveLeft;
                                 else
