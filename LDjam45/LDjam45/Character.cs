@@ -102,7 +102,7 @@ namespace LDjam45
             attacked = false;
             isInvulnerable = false;
             frameWaitSet = false;
-            currentFrameCount = 8;
+            currentFrameCount = 24;
             //animation preliminary values
             imageHeight = 64;
             imageWidth = 64;
@@ -442,25 +442,25 @@ namespace LDjam45
                     if (mState != moveFSM.idle)
                     {
                         imageYOffset = imageHeight;
-                        currentFrameCount = 7;
+                        currentFrameCount = 15;
                     }
                     else
                     {
                         imageYOffset = 0*imageHeight;
-                        currentFrameCount = 0;
+                        currentFrameCount = 23;
                     }
                     break;
                 case playerState.attackState:
                     imageYOffset = 3 * imageHeight;
-                    currentFrameCount = 8;
+                    currentFrameCount = 17;
                     break;
                 case playerState.blockState:
                     imageYOffset = 4 * imageHeight;
-                    currentFrameCount = 8;
+                    currentFrameCount = 17;
                     break;
                 case playerState.knockBackState:
                     imageYOffset = 5 * imageHeight;
-                    currentFrameCount = 6;
+                    currentFrameCount = 7;
                     break;
             }
 
