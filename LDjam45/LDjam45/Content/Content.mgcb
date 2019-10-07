@@ -37,6 +37,30 @@
 /processorParam:TextureFormat=Color
 /build:GunnerSpritesheet.png
 
+#begin JumpYelp1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:JumpYelp1.mp3
+
+#begin Pew1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Pew1.mp3
+
+#begin Pew2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Pew2.mp3
+
+#begin Pew3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Pew3.mp3
+
 #begin SwordSpritesheet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -55,4 +79,22 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Text.spritefont
+
+#begin Whoosh1.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Whoosh1.mp3
+
+#begin Whoosh2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Whoosh2.mp3
+
+#begin Whoosh3.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Whoosh3.mp3
 
