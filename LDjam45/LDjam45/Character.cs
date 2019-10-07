@@ -441,7 +441,18 @@ namespace LDjam45
                     //set the frame timer
                     if (!frameWaitSet)
                     {
-                        frameWait = 30;
+                        if(pType == playerType.gunPlayer)
+                        {
+                            frameWait = 16;
+                        }
+                        else if (pType == playerType.swordPlayer)
+                        {
+                            frameWait = 30;
+                        }
+                        else if (pType == playerType.flailPlayer)
+                        {
+                            frameWait = 48;
+                        }
                         frameWaitSet = true;
                     }
                     //if the player has waited enough, set the player state back to move and reset the ability to attack
