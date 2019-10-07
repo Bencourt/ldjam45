@@ -67,7 +67,7 @@ namespace LDjam45
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            gState = gameState.game;
+            gState = gameState.menu;
             mState = new MouseState();
             base.Initialize();
         }
@@ -85,8 +85,8 @@ namespace LDjam45
             GunnerSpritesheet = Content.Load<Texture2D>("GunnerSpritesheet");
             FlailSpritesheet = Content.Load<Texture2D>("FlailSpritesheet");
             SwordSpritesheet = Content.Load<Texture2D>("SwordSpritesheet");
-            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet, SingleKeyPress(Keys.F));
-            player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet, SingleKeyPress(Keys.F));
+            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
+            player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
             player0.GetOther(player1);
             player1.GetOther(player0);
         }
@@ -132,12 +132,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet, SingleKeyPress(Keys.F));
+                                player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
                                 choice1 = true;//Checks if the players have chosen characters
                             }
                             else if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet, SingleKeyPress(Keys.F));
+                                player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
                                 choice2 = true;
                             }
                         }
@@ -145,12 +145,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordSpritesheet, SingleKeyPress(Keys.F));
+                                player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordSpritesheet);
                                 choice1 = true;
                             }
                             else if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet, SingleKeyPress(Keys.F));
+                                player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
                                 choice2 = true;
                             }
                         }
@@ -158,12 +158,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), FlailSpritesheet, SingleKeyPress(Keys.F));
+                                player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), FlailSpritesheet);
                                 choice1 = true;
                             }
                             else if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet, SingleKeyPress(Keys.F));
+                                player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet);
                                 choice2 = true;
                             }
                         }
@@ -172,11 +172,11 @@ namespace LDjam45
                     {
                         if (choice1 != true)//If a character has not been chosen, the player is defaulted to gunner
                         {
-                            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet, SingleKeyPress(Keys.F));
+                            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
                         }
                         if (choice2 != true)
                         {
-                            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet, SingleKeyPress(Keys.F));
+                            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
                         }
                         gState = gameState.game;
                     }

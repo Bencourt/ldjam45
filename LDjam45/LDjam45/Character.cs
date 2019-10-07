@@ -90,7 +90,7 @@ namespace LDjam45
         #endregion
 
         //character constructor takes game information 
-        public Character(playerType pType, int playerNumber, Rectangle playerRectangle, Texture2D spriteSheet, bool singlePress)
+        public Character(playerType pType, int playerNumber, Rectangle playerRectangle, Texture2D spriteSheet)
         {
             //setting preliminary values
             health = 20;
