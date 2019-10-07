@@ -125,9 +125,9 @@ namespace LDjam45
                 case gameState.gameOver:
                     break;
                 case gameState.menu:
-                    r1 = new Rectangle(100, 100, 100, 100);//Character selection boxes
-                    r2 = new Rectangle(200, 100, 100, 100);
-                    r3 = new Rectangle(300, 100, 100, 100);
+                    r1 = new Rectangle(100, 100, 100, 500);//Character selection boxes
+                    r2 = new Rectangle(200, 100, 100, 500);
+                    r3 = new Rectangle(300, 100, 100, 500);
                     if (mState.Y > 100 && mState.Y < 200)//If the mouse is within the y range
                     {
                         if (mState.X > 100 && mState.X < 200)//If the mouse is within the x ranges
@@ -137,7 +137,7 @@ namespace LDjam45
                                 player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
                                 choice1 = true;//Checks if the players have chosen characters
                             }
-                            else if (mState.RightButton == ButtonState.Pressed)
+                            if (mState.RightButton == ButtonState.Pressed)
                             {
                                 player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
                                 choice2 = true;
@@ -150,7 +150,7 @@ namespace LDjam45
                                 player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordSpritesheet);
                                 choice1 = true;
                             }
-                            else if (mState.RightButton == ButtonState.Pressed)
+                            if (mState.RightButton == ButtonState.Pressed)
                             {
                                 player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
                                 choice2 = true;
@@ -163,7 +163,7 @@ namespace LDjam45
                                 player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), FlailSpritesheet);
                                 choice1 = true;
                             }
-                            else if (mState.RightButton == ButtonState.Pressed)
+                            if (mState.RightButton == ButtonState.Pressed)
                             {
                                 player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet);
                                 choice2 = true;
