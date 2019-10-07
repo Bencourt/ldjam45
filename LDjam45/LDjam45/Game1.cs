@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace LDjam45
 {
@@ -51,6 +53,16 @@ namespace LDjam45
         MouseState mState;
         bool choice1;
         bool choice2;
+
+        //sounds
+        SoundEffect jumpSound;
+        SoundEffect pew1;
+        SoundEffect pew2;
+        SoundEffect pew3;
+        SoundEffect whoosh1;
+        SoundEffect whoosh2;
+        SoundEffect whoosh3;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -87,6 +99,16 @@ namespace LDjam45
             FlailSpritesheet = Content.Load<Texture2D>("FlailSpritesheet");
             SwordSpritesheet = Content.Load<Texture2D>("SwordSpritesheet");
             Text = Content.Load<SpriteFont>("Text");
+
+            //load sounds here
+            jumpSound = Content.Load<SoundEffect>("JumpYelp1");
+            pew1 = Content.Load<SoundEffect>("Pew1");
+            pew2 = Content.Load<SoundEffect>("Pew2");
+            pew3 = Content.Load<SoundEffect>("Pew3");
+            whoosh1 = Content.Load<SoundEffect>("Whoosh1");
+            whoosh2 = Content.Load<SoundEffect>("Whoosh2");
+            whoosh3 = Content.Load<SoundEffect>("Whoosh3");
+
             //player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
             //player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
             //player0.GetOther(player1);
