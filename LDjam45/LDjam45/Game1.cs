@@ -126,9 +126,9 @@ namespace LDjam45
                 case gameState.gameOver:
                     break;
                 case gameState.menu:
-                    r1 = new Rectangle(100, 100, 100, 500);//Character selection boxes
-                    r2 = new Rectangle(200, 100, 100, 500);
-                    r3 = new Rectangle(300, 100, 100, 500);
+                    r1 = new Rectangle(100, 100, 100, 200);//Character selection boxes
+                    r2 = new Rectangle(200, 100, 100, 200);
+                    r3 = new Rectangle(300, 100, 100, 200);
                     if (mState.Y > 100 && mState.Y < 200)//If the mouse is within the y range
                     {
                         if (mState.X > 100 && mState.X < 200)//If the mouse is within the x ranges
@@ -219,12 +219,35 @@ namespace LDjam45
                 case gameState.menu:
                     Vector2 textVector;
                     textVector = new Vector2(100, 100);
-                    spriteBatch.DrawString(Text, "Gun", textVector, Color.Black);
+                    if (mState.X > 100 && mState.X < 200 && mState.Y > 100 && mState.Y < 200) 
+                    {
+                        spriteBatch.DrawString(Text, "Gun", textVector, Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(Text, "Gun", textVector, Color.Black);
+                    }
                     textVector = new Vector2(200, 100);
-                    spriteBatch.DrawString(Text, "Sword", textVector, Color.Black);
+                    if (mState.X > 200 && mState.X < 300 && mState.Y > 100 && mState.Y < 200)
+                    {
+                        spriteBatch.DrawString(Text, "Sword", textVector, Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(Text, "Sword", textVector, Color.Black);
+                    }
                     textVector = new Vector2(300, 100);
-                    spriteBatch.DrawString(Text, "Flail", textVector, Color.Black);
+                    if (mState.X > 300 && mState.X < 400 && mState.Y > 100 && mState.Y < 200)
+                    {
+                        spriteBatch.DrawString(Text, "Flail", textVector, Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.DrawString(Text, "Flail", textVector, Color.Black);
+                    }
 
+                    
+                    
                     break;
                 case gameState.pause:
                     break;
