@@ -49,3 +49,10 @@
 /processorParam:TextureFormat=Color
 /build:SwordSpritesheet.png
 
+#begin Text.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Text.spritefont
+
