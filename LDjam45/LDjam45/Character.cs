@@ -46,7 +46,7 @@ namespace LDjam45
         int dir;            //player facing direction
         bool attacked;      //has the player attacked
         bool isInvulnerable; //the player is either blocking or in knockback
-        
+        int groundY;
 
 
         // Texture and drawing
@@ -94,7 +94,7 @@ namespace LDjam45
         {
             //setting preliminary values
             health = 20;
-            spdScale = 5;
+            spdScale = 4;
             xSpd = 0.0f;
             ySpd = 0.0f;
             dir = 1;
@@ -118,6 +118,8 @@ namespace LDjam45
             hitBox = new HitboxManager();
             //set the player type 
             this.pType = pType;
+
+            groundY = playerRectangle.Y;
 
             //set the preliminary staes
             pState = playerState.moveState;
@@ -241,13 +243,14 @@ namespace LDjam45
 
                             case jumpState.falling:
                                 //the falling state makes the player slow their jump and then fall
-                                if (ySpd != 10)
+                                if (playerRectangle.Y < groundY)
                                     //if not back to original position, fall
                                     ySpd++;
                                 else
                                 {
                                     //if back to original position, set speed to 0 and set to grounded state
                                     ySpd = 0;
+                                    playerRectangle.Y = groundY;
                                     jState = jumpState.grounded;
                                 }
                                 break;
@@ -300,6 +303,9 @@ namespace LDjam45
                                         pState = playerState.attackState;
                                     }
                                 }
+
+                                if (playerRectangle.X < 20)
+                                    xSpd = 0;
                                 break;
 
                             case moveFSM.moveRight:
@@ -320,26 +326,37 @@ namespace LDjam45
                                         pState = playerState.attackState;
                                     }
                                 }
+
+                                if(playerRectangle.X > 700)
+                                {
+                                    xSpd = 0;
+                                }
                                 break;
 
                         }
                         switch (jState)
                         {
                             case jumpState.grounded:
+                                //the grounded state makes sure the player does not move
                                 ySpd = 0;
                                 break;
 
                             case jumpState.moveJump:
+                                //the move jump state sets the player's y velocity to 10
                                 ySpd = -10;
                                 jState = jumpState.falling;
                                 break;
 
                             case jumpState.falling:
-                                if (ySpd != 10)
+                                //the falling state makes the player slow their jump and then fall
+                                if (playerRectangle.Y < groundY)
+                                    //if not back to original position, fall
                                     ySpd++;
                                 else
                                 {
+                                    //if back to original position, set speed to 0 and set to grounded state
                                     ySpd = 0;
+                                    playerRectangle.Y = groundY;
                                     jState = jumpState.grounded;
                                 }
                                 break;
@@ -359,7 +376,10 @@ namespace LDjam45
                         {
                             //sword player attack with arbitrary values
                             case playerType.swordPlayer:
-                                hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
+                                if(dir<0)
+                                    hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir) + (20 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
+                                else
+                                    hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
                                 if (hitBox.CheckCollision(Other))
                                     Other.TakeDamage();
                                 hitBox.DeleteHitbox();
@@ -367,16 +387,20 @@ namespace LDjam45
 
                                 //flail player, arbitrary values
                             case playerType.flailPlayer:
-                                hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (50 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(40, 40));
-                                if (hitBox.CheckCollision(Other))
+                                if (dir < 0)
+                                    hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (150 * dir) + (30 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(30, 30));
+                                else
+                                    hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (150 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(30, 30)); if (hitBox.CheckCollision(Other))
                                     Other.TakeDamage();
                                 hitBox.DeleteHitbox();
                                 break;
 
                                 //gun player arbitrary values
                             case playerType.gunPlayer:
-                                hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
-                                if (hitBox.CheckCollision(Other))
+                                if (dir < 0)
+                                    hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir) + (500 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(500, 5));
+                                else
+                                    hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(500, 5)); if (hitBox.CheckCollision(Other))
                                     Other.TakeDamage();
                                 hitBox.DeleteHitbox();
                                 break;
@@ -430,6 +454,7 @@ namespace LDjam45
                     if(!frameWaitSet)
                     {
                         frameWaitSet = true;
+
                         frameWait = 4;
                     }
                     if(frameWait > 0)
@@ -438,6 +463,11 @@ namespace LDjam45
                     }
                     else
                     {
+                        if(playerRectangle.Y != Other.PlayerRectangle.Y)
+                        {
+                            ySpd = -1;
+                            jState = jumpState.falling;
+                        }
                         isInvulnerable = false;
                         frameWait = 4;
                         frameWaitSet = false;

@@ -122,6 +122,8 @@ namespace LDjam45
                 case gameState.game:
                     player0.Update(kbState, frameCount);
                     player1.Update(kbState, frameCount);
+                    if (player0.Health <= 0 || player1.Health <= 0)
+                        gState = gameState.gameOver;
                     break;
                 case gameState.gameOver:
                     break;
@@ -213,6 +215,8 @@ namespace LDjam45
                 case gameState.game:
                     player0.draw(spriteBatch);
                     player1.draw(spriteBatch);
+                    spriteBatch.DrawString(Text, "player 1 health: " + player0.Health, new Vector2(20, 20), Color.White);
+                    spriteBatch.DrawString(Text, "player 2 health: " + player1.Health, new Vector2(20, 40), Color.White);
                     break;
                 case gameState.gameOver:
                     break;
