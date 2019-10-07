@@ -174,7 +174,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.W))
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)//Attack, but only on the ground
                                 {
                                     if (kbState.IsKeyDown(Keys.F))
@@ -199,7 +202,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.W))
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.F))
@@ -224,7 +230,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.W))
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.F))
@@ -283,7 +292,10 @@ namespace LDjam45
 
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.M))
@@ -303,7 +315,10 @@ namespace LDjam45
 
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.M))
@@ -326,7 +341,10 @@ namespace LDjam45
 
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.M))
