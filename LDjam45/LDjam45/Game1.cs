@@ -113,7 +113,8 @@ namespace LDjam45
                 Exit();
             System.Console.WriteLine("update");
             // TODO: Add your update logic here
-            
+
+            mState = Mouse.GetState(Window);
             prevKbState = kbState;
             kbState = Keyboard.GetState();
             switch (gState)
