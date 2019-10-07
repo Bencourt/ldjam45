@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace LDjam45
 {
@@ -65,6 +67,9 @@ namespace LDjam45
 
         Rectangle playerRectangle;      //player rectangle
 
+        SoundEffect attackSound;
+        SoundEffect jumpSound;
+
         public Rectangle PlayerRectangle        //rectangle property
         {
             get { return playerRectangle; }
@@ -90,7 +95,7 @@ namespace LDjam45
         #endregion
 
         //character constructor takes game information 
-        public Character(playerType pType, int playerNumber, Rectangle playerRectangle, Texture2D spriteSheet)
+        public Character(playerType pType, int playerNumber, Rectangle playerRectangle, Texture2D spriteSheet, SoundEffect attackSound, SoundEffect jumpSound)
         {
             //setting preliminary values
             health = 20;
@@ -109,6 +114,9 @@ namespace LDjam45
             //twelve for fps looks good for now, can be changed later as needed
             fps = 12;
             timePerFrame = 1 / fps;
+            //sound
+            this.attackSound = attackSound;
+            this.jumpSound = jumpSound;
             
             //set the spritesheet
             this.spriteSheet = spriteSheet;
@@ -166,7 +174,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.W))
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)//Attack, but only on the ground
                                 {
                                     if (kbState.IsKeyDown(Keys.F))
@@ -191,7 +202,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.W))
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.F))
@@ -216,7 +230,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.W))
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.F))
@@ -275,7 +292,10 @@ namespace LDjam45
 
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.M))
@@ -295,7 +315,10 @@ namespace LDjam45
 
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.M))
@@ -318,7 +341,10 @@ namespace LDjam45
 
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
+                                    {
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
+                                    }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
                                     if (kbState.IsKeyDown(Keys.M))
@@ -376,6 +402,7 @@ namespace LDjam45
                         {
                             //sword player attack with arbitrary values
                             case playerType.swordPlayer:
+                                PlaySound(attackSound, 1);
                                 if(dir<0)
                                     hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir) + (20 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
                                 else
@@ -387,6 +414,7 @@ namespace LDjam45
 
                                 //flail player, arbitrary values
                             case playerType.flailPlayer:
+                                PlaySound(attackSound, 1);
                                 if (dir < 0)
                                     hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (150 * dir) + (30 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(30, 30));
                                 else
@@ -397,6 +425,7 @@ namespace LDjam45
 
                                 //gun player arbitrary values
                             case playerType.gunPlayer:
+                                PlaySound(attackSound, 1);
                                 if (dir < 0)
                                     hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir) + (500 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(500, 5));
                                 else
@@ -614,6 +643,12 @@ namespace LDjam45
         {
             //set the other player
             this.Other = Other;
+        }
+
+        private void PlaySound(SoundEffect sound, double i)
+        {
+            
+            sound.CreateInstance().Play();
         }
     }
 }
