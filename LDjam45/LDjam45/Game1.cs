@@ -159,12 +159,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
+                                player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet, pew1, jumpSound);
                                 choice1 = true;//Checks if the players have chosen characters
                             }
                             if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
+                                player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet, pew1, jumpSound);
                                 choice2 = true;
                             }
                         }
@@ -172,12 +172,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordSpritesheet);
+                                player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordSpritesheet, whoosh3, jumpSound);
                                 choice1 = true;
                             }
                             if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
+                                player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet, whoosh3, jumpSound);
                                 choice2 = true;
                             }
                         }
@@ -185,12 +185,12 @@ namespace LDjam45
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), FlailSpritesheet);
+                                player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), FlailSpritesheet, whoosh1, jumpSound);
                                 choice1 = true;
                             }
                             if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet);
+                                player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet, whoosh1, jumpSound);
                                 choice2 = true;
                             }
                         }
@@ -199,11 +199,11 @@ namespace LDjam45
                     {
                         if (choice1 != true)//If a character has not been chosen, the player is defaulted to gunner
                         {
-                            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
+                            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet, pew1, jumpSound);
                         }
                         if (choice2 != true)
                         {
-                            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
+                            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet, pew1, jumpSound);
                         }
 
                         //set the plyers to their other before game starts
