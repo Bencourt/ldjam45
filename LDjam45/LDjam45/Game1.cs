@@ -42,6 +42,7 @@ namespace LDjam45
         Texture2D FlailSpritesheet;
         Texture2D SwordSpritesheet;
         Texture2D titleScreen;
+        Texture2D gameBackground;
         Texture2D pointer;
         SpriteFont Text;
 
@@ -104,6 +105,7 @@ namespace LDjam45
             SwordSpritesheet = Content.Load<Texture2D>("SwordSpritesheet");
 
             titleScreen = Content.Load<Texture2D>("playfighting title screen");
+            gameBackground = Content.Load<Texture2D>("background");
             pointer = Content.Load<Texture2D>("pointer");
 
             Text = Content.Load<SpriteFont>("Text");
@@ -246,6 +248,7 @@ namespace LDjam45
             switch (gState)
             {
                 case gameState.game:
+                    spriteBatch.Draw(gameBackground, background.Location.ToVector2(), Color.White);
                     player0.draw(spriteBatch);
                     player1.draw(spriteBatch);
                     spriteBatch.DrawString(Text, "player 1 health: " + player0.Health, new Vector2(20, 20), Color.White);

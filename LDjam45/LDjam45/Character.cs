@@ -213,6 +213,8 @@ namespace LDjam45
                                         pState = playerState.attackState;
                                     }
                                 }
+                                if (playerRectangle.X < 20)
+                                    xSpd = 0;
                                 break;
 
                                 //move right
@@ -240,7 +242,11 @@ namespace LDjam45
                                     {
                                         pState = playerState.attackState;
                                     }
-                                }                                
+                                }
+                                if (playerRectangle.X > 700)
+                                {
+                                    xSpd = 0;
+                                }
                                 break;
                         }
 
