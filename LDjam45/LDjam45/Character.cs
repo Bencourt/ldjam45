@@ -46,7 +46,6 @@ namespace LDjam45
         int dir;            //player facing direction
         bool attacked;      //has the player attacked
         bool isInvulnerable; //the player is either blocking or in knockback
-        bool singlePress;   //detects a single key press, value is equal to method in Game1
         
 
 
@@ -126,8 +125,6 @@ namespace LDjam45
             jState = jumpState.grounded;
             //set the player number
             this.playerNumber = playerNumber;
-
-            this.singlePress = singlePress;
         }
 
         //update method takes a keyboard state and frame count from the game1 update method
@@ -170,12 +167,8 @@ namespace LDjam45
                                         jState = jumpState.moveJump;
                                 if (kbState.IsKeyDown(Keys.F))
                                 {
-                                    if (singlePress != false)
-                                    {
                                         pState = playerState.attackState;
-                                    }
-
-                        }
+                                }
                         break;
 
                                 //move left state 
@@ -271,7 +264,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
-
+                                if (kbState.IsKeyDown(Keys.M))
+                                {
+                                    pState = playerState.attackState;
+                                }
                                 break;
 
                             case moveFSM.moveLeft:
@@ -285,6 +281,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
+                                if (kbState.IsKeyDown(Keys.M))
+                                {
+                                    pState = playerState.attackState;
+                                }
                                 break;
 
                             case moveFSM.moveRight:
@@ -298,6 +298,10 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
+                                if (kbState.IsKeyDown(Keys.M))
+                                {
+                                    pState = playerState.attackState;
+                                }
                                 break;
 
                         }
@@ -451,6 +455,7 @@ namespace LDjam45
                     }
                     break;
                 case playerState.attackState:
+                    xSpd = 0;
                     imageYOffset = 4 * imageHeight;
                     currentFrameCount = 17;
                     break;
