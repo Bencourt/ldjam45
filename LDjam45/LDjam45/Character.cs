@@ -175,7 +175,7 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                     {
-                                        PlaySound(jumpSound);
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
                                     }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)//Attack, but only on the ground
@@ -203,7 +203,7 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                     {
-                                        PlaySound(jumpSound);
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
                                     }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
@@ -231,7 +231,7 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                     {
-                                        PlaySound(jumpSound);
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
                                     }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
@@ -293,7 +293,7 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                     {
-                                        PlaySound(jumpSound);
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
                                     }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
@@ -316,7 +316,7 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                     {
-                                        PlaySound(jumpSound);
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
                                     }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
@@ -342,7 +342,7 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                     {
-                                        PlaySound(jumpSound);
+                                        PlaySound(jumpSound, 1);
                                         jState = jumpState.moveJump;
                                     }
                                 if (jState != jumpState.moveJump && jState != jumpState.falling)
@@ -402,7 +402,7 @@ namespace LDjam45
                         {
                             //sword player attack with arbitrary values
                             case playerType.swordPlayer:
-                                PlaySound(attackSound);
+                                PlaySound(attackSound, 1);
                                 if(dir<0)
                                     hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir) + (20 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(20, 20));
                                 else
@@ -414,7 +414,7 @@ namespace LDjam45
 
                                 //flail player, arbitrary values
                             case playerType.flailPlayer:
-                                PlaySound(attackSound);
+                                PlaySound(attackSound, 1);
                                 if (dir < 0)
                                     hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (150 * dir) + (30 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(30, 30));
                                 else
@@ -425,7 +425,7 @@ namespace LDjam45
 
                                 //gun player arbitrary values
                             case playerType.gunPlayer:
-                                PlaySound(attackSound);
+                                PlaySound(attackSound, 1);
                                 if (dir < 0)
                                     hitBox.ActivateHitbox(new Point(playerRectangle.X + playerRectangle.Width / 2 + (10 * dir) + (500 * dir), playerRectangle.Y + playerRectangle.Height / 2), new Point(500, 5));
                                 else
@@ -645,8 +645,9 @@ namespace LDjam45
             this.Other = Other;
         }
 
-        private void PlaySound(SoundEffect sound)
+        private void PlaySound(SoundEffect sound, double i)
         {
+            
             sound.CreateInstance().Play();
         }
     }
