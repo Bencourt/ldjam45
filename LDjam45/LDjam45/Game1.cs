@@ -41,6 +41,8 @@ namespace LDjam45
         Texture2D GunnerSpritesheet;
         Texture2D FlailSpritesheet;
         Texture2D SwordSpritesheet;
+        Texture2D titleScreen;
+        Texture2D pointer;
         SpriteFont Text;
 
         //characters
@@ -50,6 +52,8 @@ namespace LDjam45
         Rectangle r1;
         Rectangle r2;
         Rectangle r3;
+        Rectangle background;
+        Rectangle mouseImage;
         MouseState mState;
         bool choice1;
         bool choice2;
@@ -98,6 +102,10 @@ namespace LDjam45
             GunnerSpritesheet = Content.Load<Texture2D>("GunnerSpritesheet");
             FlailSpritesheet = Content.Load<Texture2D>("FlailSpritesheet");
             SwordSpritesheet = Content.Load<Texture2D>("SwordSpritesheet");
+
+            titleScreen = Content.Load<Texture2D>("playfighting title screen");
+            pointer = Content.Load<Texture2D>("pointer");
+
             Text = Content.Load<SpriteFont>("Text");
 
             //load sounds here
@@ -150,47 +158,50 @@ namespace LDjam45
                 case gameState.gameOver:
                     break;
                 case gameState.menu:
-                    r1 = new Rectangle(100, 100, 100, 200);//Character selection boxes
-                    r2 = new Rectangle(200, 100, 100, 200);
-                    r3 = new Rectangle(300, 100, 100, 200);
-                    if (mState.Y > 100 && mState.Y < 200)//If the mouse is within the y range
+                    r1 = new Rectangle(100, 300, 100, 200);//Character selection boxes
+                    r2 = new Rectangle(200, 300, 100, 200);
+                    r3 = new Rectangle(300, 300, 100, 200);
+                    background = new Rectangle(0, 0, 800, 480);
+                    mouseImage = new Rectangle(0, 0, 20, 20);
+                    mouseImage.Location = mState.Position;
+                    if (mState.Y > 300 && mState.Y < 400)//If the mouse is within the y range
                     {
-                        if (mState.X > 100 && mState.X < 200)//If the mouse is within the x ranges
+                        if (mState.X > 400 && mState.X < 500)//If the mouse is within the x ranges
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
+                                player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 300, 100, 100), GunnerSpritesheet);
                                 choice1 = true;//Checks if the players have chosen characters
                             }
                             if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
+                                player1 = new Character(playerType.gunPlayer, 1, new Rectangle(600, 300, 100, 100), GunnerSpritesheet);
                                 choice2 = true;
                             }
                         }
-                        else if (mState.X > 200 && mState.X < 300)
+                        else if (mState.X > 500 && mState.X < 600)
                         {
                             if (mState.LeftButton == ButtonState.Pressed)
                             {
-                                player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 100, 100, 100), SwordSpritesheet);
+                                player0 = new Character(playerType.swordPlayer, 0, new Rectangle(100, 300, 100, 100), SwordSpritesheet);
                                 choice1 = true;
                             }
                             if (mState.RightButton == ButtonState.Pressed)
                             {
-                                player1 = new Character(playerType.swordPlayer, 1, new Rectangle(400, 100, 100, 100), SwordSpritesheet);
-                                choice2 = true;
-                            }
-                        }
-                        else if (mState.X > 300 && mState.X < 400)
-                        {
-                            if (mState.LeftButton == ButtonState.Pressed)
-                            {
-                                player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 100, 100, 100), FlailSpritesheet);
-                                choice1 = true;
-                            }
-                            if (mState.RightButton == ButtonState.Pressed)
-                            {
-                                player1 = new Character(playerType.flailPlayer, 1, new Rectangle(400, 100, 100, 100), FlailSpritesheet);
+                                player1 = new Character(playerType.swordPlayer, 1, new Rectangle(600, 300, 100, 100), SwordSpritesheet);
+                                choice2 = true;                                                  
+                            }                                                                    
+                        }                                                                        
+                        else if (mState.X > 600 && mState.X < 700)                               
+                        {                                                                        
+                            if (mState.LeftButton == ButtonState.Pressed)                        
+                            {                                                                    
+                                player0 = new Character(playerType.flailPlayer, 0, new Rectangle(100, 300, 100, 100), FlailSpritesheet);
+                                choice1 = true;                                                  
+                            }                                                                    
+                            if (mState.RightButton == ButtonState.Pressed)                       
+                            {                                                                    
+                                player1 = new Character(playerType.flailPlayer, 1, new Rectangle(600, 300, 100, 100), FlailSpritesheet);
                                 choice2 = true;
                             }
                         }
@@ -199,11 +210,11 @@ namespace LDjam45
                     {
                         if (choice1 != true)//If a character has not been chosen, the player is defaulted to gunner
                         {
-                            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 100, 100, 100), GunnerSpritesheet);
+                            player0 = new Character(playerType.gunPlayer, 0, new Rectangle(100, 300, 100, 100), GunnerSpritesheet);
                         }
                         if (choice2 != true)
                         {
-                            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(400, 100, 100, 100), GunnerSpritesheet);
+                            player1 = new Character(playerType.gunPlayer, 1, new Rectangle(600, 300, 100, 100), GunnerSpritesheet);
                         }
 
                         //set the plyers to their other before game starts
@@ -241,11 +252,23 @@ namespace LDjam45
                     spriteBatch.DrawString(Text, "player 2 health: " + player1.Health, new Vector2(20, 40), Color.White);
                     break;
                 case gameState.gameOver:
+                    if (player0.Health <= 0)
+                        spriteBatch.DrawString(Text, "Player 2 wins!", new Vector2(400, 240), Color.White);
+                    else if (player1.Health <= 0)
+                        spriteBatch.DrawString(Text, "Player 1 wins!", new Vector2(400, 240), Color.White);
+                    else
+                        spriteBatch.DrawString(Text, "no one won", new Vector2(400, 240), Color.White);
                     break;
                 case gameState.menu:
                     Vector2 textVector;
-                    textVector = new Vector2(100, 100);
-                    if (mState.X > 100 && mState.X < 200 && mState.Y > 100 && mState.Y < 200) 
+                    textVector = new Vector2(410, 350);
+                    spriteBatch.Draw(titleScreen, background.Location.ToVector2(), Color.White);
+                    spriteBatch.Draw(pointer, mouseImage.Location.ToVector2(), Color.White);
+                    spriteBatch.DrawString(Text, "Choose your fighter! (left click for player 1, right click for player 2)", new Vector2(300, 300), Color.White);
+                    spriteBatch.DrawString(Text, "Press space to start!", new Vector2(300, 400), Color.White);
+                    spriteBatch.DrawString(Text, "Player 1 wasd to move, f to attack", new Vector2(300, 420), Color.White);
+                    spriteBatch.DrawString(Text, "Player 2 Arrow keys to move, m to attack", new Vector2(300, 440), Color.White);
+                    if (mState.X > 400 && mState.X < 500 && mState.Y > 300 && mState.Y < 400) 
                     {
                         spriteBatch.DrawString(Text, "Gun", textVector, Color.White);
                     }
@@ -253,8 +276,8 @@ namespace LDjam45
                     {
                         spriteBatch.DrawString(Text, "Gun", textVector, Color.Black);
                     }
-                    textVector = new Vector2(200, 100);
-                    if (mState.X > 200 && mState.X < 300 && mState.Y > 100 && mState.Y < 200)
+                    textVector = new Vector2(510, 350);
+                    if (mState.X > 500 && mState.X < 600 && mState.Y > 300 && mState.Y < 400)
                     {
                         spriteBatch.DrawString(Text, "Sword", textVector, Color.White);
                     }
@@ -262,8 +285,8 @@ namespace LDjam45
                     {
                         spriteBatch.DrawString(Text, "Sword", textVector, Color.Black);
                     }
-                    textVector = new Vector2(300, 100);
-                    if (mState.X > 300 && mState.X < 400 && mState.Y > 100 && mState.Y < 200)
+                    textVector = new Vector2(610, 350);
+                    if (mState.X > 600 && mState.X < 700 && mState.Y > 300 && mState.Y < 400)
                     {
                         spriteBatch.DrawString(Text, "Flail", textVector, Color.White);
                     }
