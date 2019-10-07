@@ -165,11 +165,14 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
-                                if (kbState.IsKeyDown(Keys.F))
+                                if (jState != jumpState.moveJump && jState != jumpState.falling)//Attack, but only on the ground
                                 {
+                                    if (kbState.IsKeyDown(Keys.F))
+                                    {
                                         pState = playerState.attackState;
+                                    }
                                 }
-                        break;
+                                break;
 
                                 //move left state 
                             case moveFSM.moveLeft:
@@ -187,9 +190,12 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
-                                if (kbState.IsKeyDown(Keys.F))
+                                if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
-                                    pState = playerState.attackState;
+                                    if (kbState.IsKeyDown(Keys.F))
+                                    {
+                                        pState = playerState.attackState;
+                                    }
                                 }
                                 break;
 
@@ -209,10 +215,13 @@ namespace LDjam45
                                     //jump if the player is on the ground
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
-                                if (kbState.IsKeyDown(Keys.F))
+                                if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
-                                    pState = playerState.attackState;
-                                }
+                                    if (kbState.IsKeyDown(Keys.F))
+                                    {
+                                        pState = playerState.attackState;
+                                    }
+                                }                                
                                 break;
                         }
 
@@ -264,9 +273,12 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
-                                if (kbState.IsKeyDown(Keys.M))
+                                if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
-                                    pState = playerState.attackState;
+                                    if (kbState.IsKeyDown(Keys.M))
+                                    {
+                                        pState = playerState.attackState;
+                                    }
                                 }
                                 break;
 
@@ -281,9 +293,12 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
-                                if (kbState.IsKeyDown(Keys.M))
+                                if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
-                                    pState = playerState.attackState;
+                                    if (kbState.IsKeyDown(Keys.M))
+                                    {
+                                        pState = playerState.attackState;
+                                    }
                                 }
                                 break;
 
@@ -298,9 +313,12 @@ namespace LDjam45
                                 if (kbState.IsKeyDown(Keys.Up))
                                     if (jState == jumpState.grounded)
                                         jState = jumpState.moveJump;
-                                if (kbState.IsKeyDown(Keys.M))
+                                if (jState != jumpState.moveJump && jState != jumpState.falling)
                                 {
-                                    pState = playerState.attackState;
+                                    if (kbState.IsKeyDown(Keys.M))
+                                    {
+                                        pState = playerState.attackState;
+                                    }
                                 }
                                 break;
 
